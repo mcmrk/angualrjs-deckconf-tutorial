@@ -1,0 +1,600 @@
+<!--********************************************/
+// file:index.html
+// angularJS DeckConfigurator [RELEASE]0.0.1
+// 
+/********************************************/-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ 
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-sanitize.js"></script>
+<script src="js/classie.js"></script>
+<script src="js/ng-modules.js"></script>
+<script src="js/graphfunc.js"></script>
+<script src="js/app.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<!--Style css-->
+<link rel="stylesheet" type="text/css" href="css/component.css" />
+<!--Google font style-->
+<link href='http://fonts.googleapis.com/css?family=Merriweather:400,400italic,700,900' rel='stylesheet' type='text/css'>
+
+</head>
+<body>
+
+<!--MODULE A AND B-->
+
+<div ng-modules="PartA, PartB">
+ <h1>MTG &copy; DECK CONFIGURATOR</h1>
+ <legend></legend>
+
+<!--CONTROLLER BLOCK-->
+
+  <div ng-controller="DeckConfiguratorCtrl">
+  <blockquote>
+  <p>This is a simple project that shows the potential of AngularJs to create single page web applications.</p>
+  <p>The goal of AngularJS is to bring the tools and capabilities that have been available only for
+     server-side development to the web client and, in doing so, make it easier to develop, test, and maintain rich and
+     complex web applications.</p>
+  <p>AngularJS works by allowing you to extend HTML, which can seem like an odd idea until you get used to it.
+     AngularJS applications express functionality through custom elements, attributes, classes, and comments; a complex
+     application can produce an HTML document that contains a mix of standard and custom markup.</p>
+  </blockquote>
+
+<!--SEARCH BLOCK-->
+
+  <div class="component">			
+   <table>
+    <tr>
+     <span class="input input--hoshi">
+      <input class="input__field input__field--hoshi" type="text" id="input-4" ng-model="query" type="text" placeholder="FILTER BY NAME"/>
+      <label class="input__label input__label--hoshi" for="input-4">Search:</label>
+     </span>
+    </tr>
+   </table>
+   
+<!--TABLE-LIST BLOCK-->
+
+   <table>
+    <thead>
+     <tr>
+      <th>Image</th>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Mana Cost</th>
+      <th>Color</th>
+      <th>Price</th>
+      <th>ID Card</th>
+      <th>Quantity</th>
+      <th>Delete Item</th>
+      <th>Remove Quantity (-1)</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr ng-repeat="item in items | filter:query | orderBy: 'id'">
+      <td><img ng-src="{{ item.Image }}" width="112" height="159" /></td>
+      <td>{{item.Name}}</td>
+      <td>{{item.Type}}</td>
+      <td>{{item.MC}}</td>
+      <td>{{item.Color}}</td>
+      <td>{{item.Price}}$</td>
+      <td>{{item.id}}</td>
+      <td>{{item.Quantity}}</td>
+      <td><input type="button"  class="btn btn-sky text-uppercase btn-sm" value="Delete Item" ng-click="deleteTaskCompletly(items.indexOf(item))"/></td>
+      <td><input type="button"  class="btn btn-sky text-uppercase btn-sm" value="Remove" ng-click="deleteTask(items.indexOf(item))"/></td>
+     </tr>
+    </tbody>
+   </table>
+
+<!--INFO BLOCK-->
+	
+   <table>
+    <th>Total Price: {{totalPrice() | setDecimal}} $</th>
+    <th>Total Cards: {{totalItems()}}</th>
+    <th>Planeswalker: {{tellMePlanes()}}</th>
+    <th>Total Planeswalker: {{tellMeTotalPlanes()}}</th>
+   </table>
+  </div><!--component div-->	
+
+<!--CHART BLOCK - 1--> 
+	
+  <h1>DeckConfigurator's Converted Mana Cost Chart</h1>
+  <legend></legend>
+  <div id="chart">
+   <ul id="bars">
+    <li><div data-percentage= "{{ManaCost0()}}" class="bar"></div><span>MC0</span></li>
+    <li><div data-percentage= "{{ManaCost1()}}" class="bar"></div><span>MC1</span></li>
+    <li><div data-percentage="{{ManaCost2()}}" class="bar"></div><span>MC2</span></li>
+    <li><div data-percentage="{{ManaCost3()}}" class="bar"></div><span>MC3</span></li>
+    <li><div data-percentage="{{ManaCost4()}}" class="bar"></div><span>MC4</span></li>
+    <li><div data-percentage="{{ManaCost5()}}" class="bar"></div><span>MC5</span></li>
+    <li><div data-percentage="{{ManaCost6()}}" class="bar"></div><span>MC6</span></li>
+    <li><div data-percentage="{{ManaCost7()}}" class="bar"></div><span>MC7</span></li>
+    <li><div data-percentage="{{ManaCost8()}}" class="bar"></div><span>MC8</span></li>
+    <li><div data-percentage="{{ManaCost9()}}" class="bar"></div><span>MC9</span></li>
+    <li><div data-percentage="{{ManaCost10()}}" class="bar"></div><span>MC10</span></li>
+    <li><div data-percentage="{{ManaCost11()}}" class="bar"></div><span>MC11</span></li>
+    <li><div data-percentage="{{ManaCost12()}}" class="bar"></div><span>MC12</span></li>
+    <li><div data-percentage="{{ManaCost13()}}" class="bar"></div><span>MC13</span></li>
+    <li><div data-percentage="{{ManaCost14()}}" class="bar"></div><span>MC14</span></li>
+    <li><div data-percentage="{{ManaCost15()}}" class="bar"></div><span>MC15</span></li>
+    <li><div data-percentage="{{ManaCost16()}}" class="bar"></div><span>MC16</span></li>
+   </ul>
+  </div>
+
+  <table>
+   <th></th>
+  </table>
+
+<!--CHART BLOCK - 2-->
+
+  <h1>DeckConfigurator's Type Chart</h1>
+  <legend></legend>
+  <div id="chart2">
+   <ul id="bars2">
+    <li><div data-percentage= "{{totalCreature()}}" class="bar2"></div><span>Creature</span></li>
+    <li><div data-percentage= "{{totalLegendary()}}" class="bar2"></div><span>Leg. Card</span></li>
+    <li><div data-percentage="{{totalInstant()}}" class="bar2"></div><span>Instant</span></li>
+    <li><div data-percentage="{{totalSorcery()}}" class="bar2"></div><span>Sorcery</span></li>
+    <li><div data-percentage="{{totalEnchantment()}}" class="bar2"></div><span>Enchantment</span></li>
+    <li><div data-percentage="{{totalLand()}}" class="bar2"></div><span>Land</span></li>
+    <li><div data-percentage="{{totalArtifact()}}" class="bar2"></div><span>Artifact</span></li>
+   </ul>
+  </div>
+
+<!---->
+
+  <table>
+   <th></th>
+  </table>
+
+<!--CHART BLOCK - 3-->
+
+  <h1>DeckConfigurator's Mana Cost Chart</h1>
+  <legend></legend>
+  <div id="chart2">
+   <ul id="bars2">
+    <li><div data-percentage= "{{Black()}}" class="bar2"></div><span>Black</span></li>
+    <li><div data-percentage="{{Red()}}" class="bar2"></div><span>Red</span></li>
+    <li><div data-percentage="{{Green()}}" class="bar2"></div><span>Green</span></li>
+    <li><div data-percentage="{{Blue()}}" class="bar2"></div><span>Blue</span></li>
+    <li><div data-percentage="{{White()}}" class="bar2"></div><span>White</span></li>
+    <li><div data-percentage="{{Multi()}}" class="bar2"></div><span>Multi</span></li>
+    <li><div data-percentage="{{ColorLess()}}" class="bar2"></div><span>Colorless</span></li>
+   </ul>
+  </div>
+
+<!-- BUTTON RELOAD -->
+
+  <table>
+   <th>
+   <div class="form-group">
+    <div class="col-md-4">
+     <button  class="btn btn-primary" ng-click="reloadPage()">Reload Graphs</button>
+    </div>
+   </div>
+   </th>
+  </table>
+  
+<!--FORM SEARCH BLOCK-->
+
+  <h1>Card Search (from magiccards.info)</h1>
+  <legend></legend>
+  <form method="GET" action="http://magiccards.info/query" name="f" class="form-horizontal" target="_blank">
+   <fieldset>
+   <div class="form-group">
+    <label class="col-md-4 control-label" for="textinput">Search:</label>  
+     <div class="col-md-4">
+      <input class="form-control input-md" type="text" placeholder="Insert a card name ex: Gravedigger" name="q" id="q" size="30" value=""></input>
+     </div>
+   </div>
+
+<!--BUTTON SEARCH ON MAGIC CARDS INFO-->
+
+   <div class="form-group">
+    <label class="col-md-4 control-label" for="singlebutton">Submit Query</label>
+     <div class="col-md-4">
+      <button id="singlebutton" name="singlebutton" class="btn btn-primary" type="submit" value="Search">Submit</button>
+     </div>
+   </div>
+   </fieldset> 
+  </form>
+
+<!--ADD +1 DECKCONFIGURATOR'S CARD QUANTITY-->
+
+  <h1>Add Quantity (only if the card is already on the set)</h1>
+  <legend></legend>
+  <form name="form" action="" class="form-horizontal">
+   <fieldset>
+    <div class="form-group">
+     <label  class="col-md-4 control-label" for="InputName">Card Name:</label>
+      <div class="col-md-4">
+       <input type="text" class="form-control input-md" name="InputName" id="InputName" placeholder="Enter Card Name" ng-model="nameq" require ng-pattern="/^[a-zA-Z\s]+$/" required></input>
+       <span class="help-block">Error type:</span>
+       <!--alert-->
+       <div role="alert">
+        <span class="error" ng-show="form.InputName.$error.pattern">
+         <div class="alert alert-warning">
+          <em>Proceed with Caution: </em><u> Not valid Name!</u>
+         </div>
+        </span>
+        <!--alert required-->
+        <span class="error" ng-show="form.InputName.$error.required">
+         <div class="alert alert-danger">
+          <em>Warning! </em> <u>Field Required</u>
+         </div>
+        </span>
+       </div> 
+      </div>
+     </div>
+
+    <div class="form-group">
+     <label class="col-md-4 control-label" for="singlebutton">Submit Query</label>
+      <div class="col-md-4">
+       <input type="submit" ng-disabled="form.$invalid" name="submit" id="submit" value="Submit" ng-click="alreadySet(nameq)" class="btn btn-primary"></input>
+      </div>
+    </div>
+   </fieldset>
+  </form>
+ 
+<!--FORM CARD BLOCK-->
+
+  <h1>DeckConfigurator's Cards Adder</h1>
+  <form name="form1" class="form-horizontal">
+   <fieldset>
+   <legend></legend>
+   <!-- Text input-->
+   <div class="form-group">
+    <label class="col-md-4 control-label" for="textinput">Card Image</label>  
+     <div class="col-md-4">
+      <input id="textinput" name="textinputi" class="form-control input-md" type="text" placeholder="Image: insert image url, ex: http://magiccards.info/scans/en/m15/99.jpg" ng-model="item.Image" ng-pattern="/((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/" required></input>
+       <span class="help-block">Error type:</span>  
+       <!--alert-->
+       <div role="alert">
+        <span class="error" ng-show="form1.textinputi.$error.pattern">
+         <div class="alert alert-warning">
+          <em>Proceed with Caution 1: </em><u> Not valid URL!</u>
+         </div>
+        </span>
+        <!--alert required-->
+        <span class="error" ng-show="form1.textinputi.$error.required">
+         <div class="alert alert-danger">
+          <em>Warning! </em> <u>Field Required</u>
+         </div>
+        </span>
+       </div>
+     </div>
+   </div><!--form group-->
+
+<!-- Text input-->
+   <div class="form-group">
+    <label class="col-md-4 control-label" for="textinput">Card Name</label>  
+     <div class="col-md-4">
+      <input id="textinput" name="textinputn" class="form-control input-md" type="text" placeholder="Name: insert card name, ex: Gravedigger"  ng-model="item.Name" ng-pattern="/^[a-zA-Z\s]+$/" required></input>
+       <span class="help-block">Error type:</span>
+       <!--alert-->
+       <div role="alert">
+        <span class="error" ng-show="form1.textinputn.$error.pattern">
+         <div class="alert alert-warning">
+          <em>Proceed with Caution 1: </em><u> Not valid Name!</u>
+         </div>
+        </span>
+        <!--alert required-->
+        <span class="error" ng-show="form1.textinputn.$error.required">
+         <div class="alert alert-danger">
+          <em>Warning! </em> <u>Field Required</u>
+         </div>
+        </span>
+       </div>
+     </div>
+   </div><!--FORM GROUP-->
+
+<!-- Text input-->
+   <div class="form-group">
+    <label class="col-md-4 control-label" for="textinput">Card Type</label>  
+     <div class="col-md-4">
+      <input id="textinput" name="textinputt" class="form-control input-md" type="text" placeholder="Type: insert card type, ex: Creature-Zombie" ng-model="item.Type" ng-pattern="/^[a-zA-Z\s/-]+$/" required></input>
+       <label class="checkbox-inline">
+            <input type="checkbox" ng-model="checkboxModel.value2" ng-true-value="25" ng-false-value="4"> Is this a Basic Land Card?
+        </label>
+       <span class="help-block">Error type:</span>
+       <!--alert-->
+       <div role="alert">
+        <span class="error" ng-show="form1.textinputt.$error.pattern">
+         <div class="alert alert-warning">
+          <em>Proceed with Caution 1: </em><u> Not valid Card Type!</u>
+         </div>
+        </span>
+        <!--alert required-->
+        <span class="error" ng-show="form1.textinputt.$error.required">
+         <div class="alert alert-danger">
+          <em>Warning! </em> <u>Field Required</u>
+         </div>
+        </span>
+       </div>
+     </div>
+   </div>
+
+<!-- Text input-->
+   <div class="form-group">
+    <label class="col-md-4 control-label" for="textinput">Mana Cost</label>  
+     <div class="col-md-4">
+      <input id="textinput" name="textinputm" class="form-control input-md" type="number" placeholder="Mana Cost: insert card mana cost, ex: 4" ng-model="item.MC" min="0" max="16" required></input>
+       <span class="help-block">Error type:</span>
+       <!--alert-->
+       <div role="alert">
+        <span class="error" ng-show="form1.textinputm.$error.number">
+         <div class="alert alert-warning">
+          <em>Proceed with Caution 1: </em><u> Not valid Mana Cost!</u>
+         </div>
+        </span>
+        <span class="error" ng-show="form1.textinputm.$error.min">
+         <div class="alert alert-warning">
+          <em>Proceed with Caution 2: </em><u> Not valid Mana Cost!</u>
+         </div>
+        </span>
+        <span class="error" ng-show="form1.textinputm.$error.max">
+         <div class="alert alert-warning">
+          <em>Proceed with Caution 3: </em><u> Not valid Mana Cost!</u>
+         </div>
+        </span>
+        <!--alert required-->
+        <span class="error" ng-show="form1.textinputm.$error.required">
+         <div class="alert alert-danger">
+          <em>Warning! </em> <u>Field Required</u>
+         </div>
+        </span>
+       </div>
+     </div>
+   </div>
+
+<!-- Text input-->
+   <div class="form-group">
+    <label class="col-md-4 control-label" for="textinput">Card Color</label>  
+     <div class="col-md-4">
+      <input id="textinput" name="textinputc" class="form-control input-md" type="text" placeholder="Color: insert color, ex: Black" ng-model="item.Color" ng-pattern="/^[a-zA-Z]+$/"  blacklist="yellow,gray,brown,pink,Yellow,Gray,Pink,Brown,Aqua,aqua,orange,Orange,violet,Violet,Crimson,crimson,Cyan,cyan,Darkgreen,darkgreen,darkblue,Darkblue,acquamarine,Aquamarine,gold,Gold,Indigo,indigo" required></input>
+      <span class="help-block">Error type:</span> 
+      <!--alert-->
+      <div role="alert">
+       <span class="error" ng-show="form1.textinputc.$error.pattern">
+        <div class="alert alert-warning">
+         <em>Proceed with Caution 1: </em><u> Not valid Color!</u>
+        </div>
+       </span>
+       <span class="error" ng-show="form1.textinputc.$error.blacklist">
+        <div class="alert alert-warning">
+         <em>Proceed with Caution 2: </em><u> Not valid Magic Color!</u>
+        </div>
+       </span>
+       <!--alert required-->
+       <span class="error" ng-show="form1.textinputc.$error.required">
+        <div class="alert alert-danger">
+         <em>Warning! </em> <u>Field Required</u>
+        </div>
+       </span>
+      </div> 
+
+     </div>
+   </div>
+
+<!-- Text input-->
+   <div class="form-group">
+    <label class="col-md-4 control-label" for="textinput">Card Price</label>  
+     <div class="col-md-4">
+      <input id="textinput" name="textinputp" class="form-control input-md" type="number" placeholder="Price: insert card price, ex: 0.75" ng-model="item.Price" min=0.01 max="7999.99" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required></input>
+       <span class="help-block">Error type:</span>
+       <div role="alert">
+        <span class="error" ng-show="form1.textinputp.$error.pattern">
+         <div class="alert alert-warning">
+          <em>Proceed with Caution 1: </em><u> Not valid Card Price!</u>
+         </div>
+        </span>
+        <span class="error" ng-show="form1.textinputp.$error.number">
+         <div class="alert alert-warning">
+          <em>Proceed with Caution 2: </em><u> Not valid Card Price!</u>
+         </div>
+        </span>
+        <span class="error" ng-show="form1.textinputp.$error.min">
+         <div class="alert alert-warning">
+          <em>Proceed with Caution 3: </em><u> Not valid Card Price!</u>
+         </div>
+        </span>
+        <span class="error" ng-show="form1.textinputp.$error.max">
+         <div class="alert alert-warning">
+          <em>Proceed with Caution 4: </em><u> Not valid Card Price!</u>
+         </div>
+        </span>
+        <!--alert required-->
+        <span class="error" ng-show="form1.textinputp.$error.required">
+         <div class="alert alert-danger">
+          <em>Warning! </em> <u>Field Required</u>
+         </div>
+        </span>
+       </div> 
+     </div>
+   </div>
+
+<!-- Text input-->
+   <div class="form-group">
+    <label class="col-md-4 control-label" for="textinput">Card Id</label>  
+     <div class="col-md-4">
+      <input id="textinput" name="textinputid" class="form-control input-md" type="number" placeholder="ID: insert id, ex: 1" ng-model="item.id"  min="0"  max = "100" ng-pattern="/^\d{0,9}(\.\d{1,9})?$/" required></input>
+       <span class="help-block">Error type:</span> 
+       <!--alert-->
+       <div role="alert">
+        <span class="error" ng-show="form1.textinputid.$error.number">
+         <div class="alert alert-warning">
+          <em>Proceed with Caution 1: </em><u> Not valid ID!</u>
+         </div>
+        </span>
+        <span class="error" ng-show="form1.textinputid.$error.pattern">
+         <div class="alert alert-warning">
+          <em>Proceed with Caution 2: </em><u> Not valid ID!</u>
+         </div>
+        </span>
+        <span class="error" ng-show="form1.textinputid.$error.min">
+         <div class="alert alert-warning">
+          <em>Proceed with Caution 3: </em><u> Not valid ID!</u>
+         </div>
+        </span>
+        <span class="error" ng-show="form1.textinputid.$error.max">
+         <div class="alert alert-warning">
+          <em>Proceed with Caution 4: </em><u> Not valid ID!</u>
+         </div>
+        </span>
+        <!--alert required-->
+        <span class="error" ng-show="form1.textinputid.$error.required">
+         <div class="alert alert-danger">
+          <em>Warning! </em> <u>Field Required</u>
+         </div>
+        </span>
+       </div> 
+     </div>
+   </div>
+
+<!-- Text input-->
+   <div class="form-group">
+    <label class="col-md-4 control-label" for="textinput">Card Quantity</label>  
+     <div class="col-md-4">
+      <input id="textinput" name="textinputq" class="form-control input-md" type="number" placeholder="Quantity: insert the quantity of cards in your deck, ex: 2" ng-model="item.Quantity" min="0" max="{{checkboxModel.value2}}" required></input>
+       <span class="help-block">Error type:</span> 
+       <!--alert-->
+       <div role="alert">
+        <span class="error" ng-show="form1.textinputq.$error.number">
+         <div class="alert alert-warning">
+          <em>Proceed with Caution 1: </em><u> Not valid quantity!</u>
+         </div>
+        </span>
+        <span class="error" ng-show="form1.textinputq.$error.min">
+         <div class="alert alert-warning">
+          <em>Proceed with Caution 2: </em><u> Not valid quantity!</u>
+         </div>
+        </span>
+        <span class="error" ng-show="form1.textinputq.$error.max">
+         <div class="alert alert-warning">
+          <em>Proceed with Caution 3: </em><u> Not valid quantity!</u>
+         </div>
+        </span>
+        <!--alert required-->
+        <span class="error" ng-show="form1.textinputq.$error.required">
+         <div class="alert alert-danger">
+          <em>Warning! </em> <u>Field Required</u>
+         </div>
+        </span>
+       </div> 
+
+     </div>
+   </div>
+
+<!-- Button -->
+   <div class="form-group">
+    <label class="col-md-4 control-label" for="singlebutton">Add New Item</label>
+     <div class="col-md-4">
+      <button id="singlebutton" name="singlebutton" ng-disabled="form1.$invalid" class="btn btn-primary" ng-click="addItem(item)">Submit</button>
+     </div>
+   </div>
+  </fieldset>
+ </form>
+
+<h1>Draw Hand</h1>
+  <legend></legend>
+  <div id="containerinfo">
+    <div class="row">
+
+    <p ng-bind-html="smuppet"></p>
+    </div>
+  </div>
+<table>
+   <th><!-- Button -->
+    <div class="form-group">
+<div class="col-md-4">
+      <button id="singlebutton" name="buttonmulligan" class="btn btn-primary" ng-click="DrawCardsPerfection()">Draw Hand</button>
+     </div>
+</div>
+   </th>
+  </table>
+<h1>Draw a Card</h1>
+  <legend></legend>
+<div id="containerinfo">
+    <div class="row">
+
+    <p ng-bind-html="snippet"></p>
+    </div>
+  </div>
+<table>
+   <th><!-- Button -->
+    <div class="form-group">
+<div class="col-md-4">
+      <button id="singlebutton" name="buttonmulligan" class="btn btn-primary" ng-click="addCard()">Draw a Card</button>
+     </div>
+</div>
+   </th>
+  </table>
+
+<h1>Mulligan</h1>
+  <legend></legend>
+<div id="containerinfo">
+
+    <div class="row">
+
+    <p ng-bind-html="mulligan"></p>
+    </div>
+  </div>
+
+<table>
+   <th><!-- Button -->
+    <div class="form-group">
+<div class="col-md-4">
+      <button id="singlebutton" name="buttonmulligan" class="btn btn-primary" ng-click="Mulligan()">Mulligan</button>
+     </div>
+</div>
+   </th>
+<modal-dialog show="modalShown" width="750px" height="200px">
+  <em>Pay Attention!</em><p>No more mulligan possible<p>
+</modal-dialog>
+  </table>
+
+</div><!--END OF FIRST CONTROLLER-->
+
+<!--START CONTROLLER B-->
+
+<div ng-controller="MyControllerB" >
+
+<h1>PROXY DECK</h1>
+  <legend></legend>
+  <blockquote>
+   <p>I've set up a very simple bootstrap 3 application using node.js to interface with mongodb architecture.</p>
+  </blockquote>
+	<div class="collapse navbar-collapse js-navbar-collapse">
+ <ul class="nav navbar-nav navbar-left">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Mongodb decklist <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Jund Midrange</a></li>
+            <li><a href="#">Skeleton Black</a></li>
+            <li><a href="#">Pressure Coatl</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Into darkness</a></li>
+          </ul>
+        </li>
+       
+      </ul>
+    </div>
+
+  <div id="containerinfob">
+
+    <div class="row">
+
+    <p ng-bind-html="printDB()"></p>
+    </div>
+  </div>
+
+
+</div><!--END OF SECOND CONTROLLER -->
+
+
+</body>
+</html>
