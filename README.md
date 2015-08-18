@@ -1,5 +1,7 @@
 # angularjs-deckconf-tutorial
 I've used AngularJS, Bootstrap and node.js to create an MVC app in which you can customize and update your magic the gathering deck.
+# Get stats from your deck! 
+See your deck's mana curve, mana distribution and more, as well as the probability to draw each card by a given turn.
 # AngularJS 
 The goal of AngularJS is to bring the tools and capabilities that have been available only for
 server-side development to the web client and, in doing so, make it easier to develop, test, and maintain rich and
