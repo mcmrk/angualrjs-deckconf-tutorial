@@ -868,8 +868,9 @@ return $scope.items[i].Quantity;
 localSet();
 };
 
+//DRAW HAND FUNC
 
-$scope.DrawCardsPerfection = function(){
+$scope.DrawHand = function(){
 
 var urlImage="";
 var id=0;
@@ -902,7 +903,7 @@ var found, x, y;
 for (x = 0; x < origLen; x++) {
     found = undefined;
     for (y = 0; y < newArr.length; y++) {
-        if (ids[x] === newArr[y]) {
+        if (ids[x] === newArr[y] && $scope.items[ids[x]].Quantity==1) {
            found = true;
            break;
         }
@@ -913,55 +914,6 @@ for (x = 0; x < origLen; x++) {
        links.push(urlImage);
 
     }
-}
-
-//to prevent 6 cards or less
-if(links.length<=6){
-
-var urlImage="";
-var id=0;
-var rdm=0;
-var step=1;
-var ids = [];
-var z,t;
-var i;
-
-do{
- for(count=0;count<$scope.items.length;count++){
-    rdm=Math.floor(( Math.random() *$scope.items.length  * 2 ) % $scope.items.length);
-     if(rdm==$scope.items[count].id){
-       id=$scope.items[count].id;
-       ids.push(id);
-       step+=1;
-       break; 
-       }else{
-            
-            }
- }     
-
-}while((links.length+step)==7);
-
-var newArr=[];
-var origLen = ids.length;
-var found, x, y;
-
-for (x = 0; x < origLen; x++) {
-    found = undefined;
-    for (y = 0; y < newArr.length; y++) {
-        if (ids[x] === newArr[y]) {
-           found = true;
-           break;
-        }
-    }
-    if (!found) {
-       newArr.push(ids[x]);
-       urlImage="".concat('<div class="col-xs-18 col-sm-6 col-md-3">','<div class="info-card">','<img src="',$scope.items[ids[x]].Image,'"',' ','alt="', $scope.items[ids[x]].Name,'"','>','</img>','</div>','</div>');
-       links.push(urlImage);
-
-    }
-}
-
-
 }
 
 if(links.length<=6){
@@ -972,6 +924,8 @@ return false;
 return $scope.smuppet=links.join(' ');
 }
 };
+
+//ADD CARD FUNC
 
 $scope.addCard=function(){
 
@@ -1035,10 +989,9 @@ var found, x, y;
 for (x = 0; x < origLen; x++) {
     found = undefined;
     for (y = 0; y < newArr.length; y++) {
-        if (ids[x] === newArr[y]) {
+        if (ids[x] === newArr[y] && $scope.items[ids[x]].Quantity==1) {
            found = true;
-           /*urlImage="".concat('<div class="col-xs-18 col-sm-6 col-md-3">','<div class="info-card">','<img src="',$scope.items[ids[Math.floor(( Math.random() *$scope.items.length  * 2 ) % $scope.items.length)]].Image,'"',' ','alt=""','>','</img>','</div>','</div>');
-           links.push(urlImage);*/
+           break;
 
           
         }
@@ -1076,7 +1029,7 @@ do{
             }
  }     
 
-}while((links.length+pass)==7);
+}while((links.length+pass)===7);
 
 var newArr=[];
 var origLen = ids.length;
@@ -1085,7 +1038,7 @@ var found, x, y;
 for (x = 0; x < origLen; x++) {
     found = undefined;
     for (y = 0; y < newArr.length; y++) {
-        if (ids[x] === newArr[y]) {
+        if (ids[x] === newArr[y] && $scope.items[ids[x]].Quantity==1) {
            found = true;
            break;
         }
@@ -1101,14 +1054,17 @@ for (x = 0; x < origLen; x++) {
 
 }
 
-links.splice(1,$scope.counter);
-$scope.modalShown = false;
 
-//alert when $scope.counter is 1
+
+
+//alert when $scope.counter is 7
 if($scope.counter===7){
 
  $scope.modalShown = !$scope.modalShown;
+ window.location.reload();
+
 }else{
+links.splice(1,$scope.counter);
 return $scope.mulligan=links.join(' ');
 }
  
@@ -1187,7 +1143,7 @@ moduleB.controller('MyControllerB', ['$scope','$http', function($scope, $http) {
 $http.get("jund.json").success(function(response) {$scope.cards = response.jund;});
 
 $scope.printDB= function() {
-
+var r;
 var i;
 var cardsimg=[];
 var sd='';
@@ -1196,11 +1152,11 @@ var imageCount = $scope.cards.length;
  for (i=0;i<imageCount;i++){
     if($scope.cards[i].Quantity>1){
       for(r=0;r<$scope.cards[i].Quantity;r++){
-     sd="".concat('<div class="col-xs-18 col-sm-6 col-md-3">','<div class="info-cardb">','<img src="',$scope.cards[ i ].Image,'"></img>','</div>','</div>');
+     sd="".concat(' <div class="col-md-3">','<div class="panel panel-default">','<div class="panel-body">','<img src="',$scope.cards[ i ].Image,'" width="272" height="388"></img>','</div>','</div>','</div>');
      cardsimg.push(sd);
 }
 }else{ 
-sd="".concat('<div class="col-xs-18 col-sm-6 col-md-3">','<div class="info-cardb">','<img src="',$scope.cards[ i ].Image,'"></img>','</div>','</div>');
+sd="".concat(' <div class="col-md-3">','<div class="panel panel-default">','<div class="panel-body">','<img src="',$scope.cards[ i ].Image,'" width="272" height="388"></img>','</div>','</div>','</div>');
      cardsimg.push(sd);
 }
 } 

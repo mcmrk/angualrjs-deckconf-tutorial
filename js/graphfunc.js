@@ -1,9 +1,3 @@
-/********************************************/
-// file:graphfunc.js
-// angularJS DeckConfigurator [RELEASE]0.0.1
-// 
-/********************************************/
-
 
 $(document).ready(function(){
     $(".dropdown").hover(            

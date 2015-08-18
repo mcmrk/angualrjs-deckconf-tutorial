@@ -15,6 +15,7 @@
 <script src="js/ng-modules.js"></script>
 <script src="js/graphfunc.js"></script>
 <script src="js/app.js"></script>
+
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <!--Style css-->
@@ -34,15 +35,6 @@
 <!--CONTROLLER BLOCK-->
 
   <div ng-controller="DeckConfiguratorCtrl">
-  <blockquote>
-  <p>This is a simple project that shows the potential of AngularJs to create single page web applications.</p>
-  <p>The goal of AngularJS is to bring the tools and capabilities that have been available only for
-     server-side development to the web client and, in doing so, make it easier to develop, test, and maintain rich and
-     complex web applications.</p>
-  <p>AngularJS works by allowing you to extend HTML, which can seem like an odd idea until you get used to it.
-     AngularJS applications express functionality through custom elements, attributes, classes, and comments; a complex
-     application can produce an HTML document that contains a mix of standard and custom markup.</p>
-  </blockquote>
 
 <!--SEARCH BLOCK-->
 
@@ -90,19 +82,56 @@
    </table>
 
 <!--INFO BLOCK-->
-	
-   <table>
-    <th>Total Price: {{totalPrice() | setDecimal}} $</th>
-    <th>Total Cards: {{totalItems()}}</th>
-    <th>Planeswalker: {{tellMePlanes()}}</th>
-    <th>Total Planeswalker: {{tellMeTotalPlanes()}}</th>
-   </table>
+<legend></legend>	
+  <h1>Info Deck</h1>
+  <legend></legend>
+<section>
+	<div class="media">
+  <div class="media-left">
+   
+      <span class="glyphicon glyphicon-piggy-bank"></span>
+  </div>
+  <div class="media-body">
+    <h4 class="media-heading">Pricing</h4>
+    Total Price: {{totalPrice() | setDecimal}} $
+  </div>
+ <div class="media-left">
+    
+     <span class="glyphicon glyphicon-duplicate"></span> 
+    
+  </div>
+  <div class="media-body">
+    <h4 class="media-heading">Total Cards</h4>
+  {{totalItems()}}
+  </div>
+ <div class="media-left">
+    
+       <span class="glyphicon glyphicon-star"></span>
+   
+  </div>
+  <div class="media-body">
+    <h4 class="media-heading">Planeswalker</h4>
+     {{tellMePlanes()}}
+  </div>
+ <div class="media-left">
+    
+     <span class="glyphicon glyphicon-certificate">
+ 
+  </div>
+  <div class="media-body">
+    <h4 class="media-heading">Total Planeswalker</h4>
+     {{tellMeTotalPlanes()}}
+  </div>
+</div>
+</section>
+   
   </div><!--component div-->	
 
 <!--CHART BLOCK - 1--> 
-	
+<legend></legend>	
   <h1>DeckConfigurator's Converted Mana Cost Chart</h1>
   <legend></legend>
+<section>
   <div id="chart">
    <ul id="bars">
     <li><div data-percentage= "{{ManaCost0()}}" class="bar"></div><span>MC0</span></li>
@@ -124,15 +153,44 @@
     <li><div data-percentage="{{ManaCost16()}}" class="bar"></div><span>MC16</span></li>
    </ul>
   </div>
-
-  <table>
-   <th></th>
-  </table>
+</section>
+  
 
 <!--CHART BLOCK - 2-->
-
+<legend></legend>
   <h1>DeckConfigurator's Type Chart</h1>
   <legend></legend>
+<section>
+<ul class="list-group">
+  <li class="list-group-item">
+    <span class="badge">{{totalCreature()}}</span>
+    Creatures
+  </li>
+<li class="list-group-item">
+    <span class="badge">{{totalLegendary()}}</span>
+    Legendary Cards
+  </li>
+<li class="list-group-item">
+    <span class="badge">{{totalInstant()}}</span>
+    Instants
+  </li>
+<li class="list-group-item">
+    <span class="badge">{{totalSorcery()}}</span>
+    Sorceries
+  </li>
+<li class="list-group-item">
+    <span class="badge">{{totalEnchantment()}}</span>
+    Enchatments
+  </li>
+<li class="list-group-item">
+    <span class="badge">{{totalLand()}}</span>
+    Lands
+  </li>
+<li class="list-group-item">
+    <span class="badge">{{totalArtifact()}}</span>
+    Artifacts
+  </li>
+</ul>
   <div id="chart2">
    <ul id="bars2">
     <li><div data-percentage= "{{totalCreature()}}" class="bar2"></div><span>Creature</span></li>
@@ -144,18 +202,48 @@
     <li><div data-percentage="{{totalArtifact()}}" class="bar2"></div><span>Artifact</span></li>
    </ul>
   </div>
-
+</section>
 <!---->
 
-  <table>
-   <th></th>
-  </table>
+  
 
 <!--CHART BLOCK - 3-->
-
+<legend></legend>
   <h1>DeckConfigurator's Mana Cost Chart</h1>
   <legend></legend>
+<section>
+<ul class="list-group">
+  <li class="list-group-item">
+    <span class="badge">{{Black()}}</span>
+    Black Cards
+  </li>
+<li class="list-group-item">
+    <span class="badge">{{Red()}}</span>
+    Red Cards
+  </li>
+<li class="list-group-item">
+    <span class="badge">{{Green()}}</span>
+    Green Cards
+  </li>
+<li class="list-group-item">
+    <span class="badge">{{Blue()}}</span>
+    Blue Cards
+  </li>
+<li class="list-group-item">
+    <span class="badge">{{White()}}</span>
+    White Cards
+  </li>
+<li class="list-group-item">
+    <span class="badge">{{Multi()}}</span>
+    Multi - Double Color Cards
+  </li>
+<li class="list-group-item">
+    <span class="badge">{{ColorLess()}}</span>
+    Colorless Cards
+  </li>
+</ul>
   <div id="chart2">
+
    <ul id="bars2">
     <li><div data-percentage= "{{Black()}}" class="bar2"></div><span>Black</span></li>
     <li><div data-percentage="{{Red()}}" class="bar2"></div><span>Red</span></li>
@@ -167,20 +255,10 @@
    </ul>
   </div>
 
-<!-- BUTTON RELOAD -->
-
-  <table>
-   <th>
-   <div class="form-group">
-    <div class="col-md-4">
-     <button  class="btn btn-primary" ng-click="reloadPage()">Reload Graphs</button>
-    </div>
-   </div>
-   </th>
-  </table>
+</section>
   
 <!--FORM SEARCH BLOCK-->
-
+<legend></legend>
   <h1>Card Search (from magiccards.info)</h1>
   <legend></legend>
   <form method="GET" action="http://magiccards.info/query" name="f" class="form-horizontal" target="_blank">
@@ -204,8 +282,8 @@
   </form>
 
 <!--ADD +1 DECKCONFIGURATOR'S CARD QUANTITY-->
-
-  <h1>Add Quantity (only if the card is already on the set)</h1>
+<legend></legend>
+  <h1>Add Quantity</h1>
   <legend></legend>
   <form name="form" action="" class="form-horizontal">
    <fieldset>
@@ -241,8 +319,8 @@
   </form>
  
 <!--FORM CARD BLOCK-->
-
-  <h1>DeckConfigurator's Cards Adder</h1>
+<legend></legend>
+  <h1>DeckConfigurator's Card Adder</h1>
   <form name="form1" class="form-horizontal">
    <fieldset>
    <legend></legend>
@@ -499,41 +577,33 @@
   </fieldset>
  </form>
 
+<legend></legend>
 <h1>Draw Hand</h1>
   <legend></legend>
   <div id="containerinfo">
-    <div class="row">
+    
 
     <p ng-bind-html="smuppet"></p>
-    </div>
+    
   </div>
-<table>
-   <th><!-- Button -->
-    <div class="form-group">
-<div class="col-md-4">
-      <button id="singlebutton" name="buttonmulligan" class="btn btn-primary" ng-click="DrawCardsPerfection()">Draw Hand</button>
-     </div>
-</div>
-   </th>
-  </table>
+
+      <button type="button" id="singlebutton" name="buttondrawhand" class="btn btn-primary btn-lg btn3d" ng-click="DrawHand()">Draw Hand</button>
+    
+
+<legend></legend>
 <h1>Draw a Card</h1>
   <legend></legend>
 <div id="containerinfo">
-    <div class="row">
+    
 
     <p ng-bind-html="snippet"></p>
-    </div>
+   
   </div>
-<table>
-   <th><!-- Button -->
-    <div class="form-group">
-<div class="col-md-4">
-      <button id="singlebutton" name="buttonmulligan" class="btn btn-primary" ng-click="addCard()">Draw a Card</button>
-     </div>
-</div>
-   </th>
-  </table>
 
+<button type="button" name="buttonaddcard" class="btn btn-primary btn-lg btn3d" ng-click="addCard()">Draw a Card</button>
+
+
+<legend></legend>
 <h1>Mulligan</h1>
   <legend></legend>
 <div id="containerinfo">
@@ -544,18 +614,13 @@
     </div>
   </div>
 
-<table>
-   <th><!-- Button -->
-    <div class="form-group">
-<div class="col-md-4">
-      <button id="singlebutton" name="buttonmulligan" class="btn btn-primary" ng-click="Mulligan()">Mulligan</button>
-     </div>
-</div>
-   </th>
+
+<button type="button" class="btn btn-primary btn-lg btn3d" id="singlebutton" name="buttonmulligan" ng-click="Mulligan()">Mulligan</button>
+    
 <modal-dialog show="modalShown" width="750px" height="200px">
   <em>Pay Attention!</em><p>No more mulligan possible<p>
 </modal-dialog>
-  </table>
+ 
 
 </div><!--END OF FIRST CONTROLLER-->
 
@@ -563,10 +628,11 @@
 
 <div ng-controller="MyControllerB" >
 
+<legend></legend>
 <h1>PROXY DECK</h1>
   <legend></legend>
   <blockquote>
-   <p>I've set up a very simple bootstrap 3 application using node.js to interface with mongodb architecture.</p>
+   <p>In this second controller I've set up a very simple AngularJS/Bootstrap application using node.js to interface with mongodb local database.</p>
   </blockquote>
 	<div class="collapse navbar-collapse js-navbar-collapse">
  <ul class="nav navbar-nav navbar-left">
@@ -574,23 +640,30 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Mongodb decklist <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <li><a href="#">Jund Midrange</a></li>
-            <li><a href="#">Skeleton Black</a></li>
-            <li><a href="#">Pressure Coatl</a></li>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
             <li class="divider"></li>
-            <li><a href="#">Into darkness</a></li>
+            <li><a href="#"></a></li>
           </ul>
         </li>
        
       </ul>
     </div>
 
-  <div id="containerinfob">
+  
 
-    <div class="row">
+  <div class="rowmull">
 
+ 
     <p ng-bind-html="printDB()"></p>
-    </div>
+    
+ 
   </div>
+
+
+
+
+
 
 
 </div><!--END OF SECOND CONTROLLER -->
