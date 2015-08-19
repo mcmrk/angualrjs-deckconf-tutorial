@@ -8,3 +8,5 @@ server-side development to the web client and, in doing so, make it easier to de
 complex web applications.
 In this tutorial I'll show you how implement basic feature like function or directive and how use Bootstrap framework 
 and how to make more elegant the app in a few small step.
+# Node.js and MongoDB
+In the second controller I've set up a simple "view" application using node.js to interface with mongodb local database to print out all the decks that are contained within thanks to a small drop-down menu.
