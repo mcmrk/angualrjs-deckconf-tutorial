@@ -1,5 +1,5 @@
 # angularjs-deckconf-tutorial
-I've used AngularJS, Bootstrap and node.js to create an MVC app in which you can customize and update your magic the gathering deck.
+I've used AngularJS, Bootstrap and node.js to create an MVC app in which you can customize and update your MTG deck.
 # Get stats from your deck! 
 See your deck's mana curve, mana distribution and more, as well as the probability to draw each card by a given turn.
 # AngularJS 
